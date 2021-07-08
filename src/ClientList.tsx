@@ -3,6 +3,7 @@ import { Container, Table, Button, Icon } from 'semantic-ui-react'
 import styled from "styled-components";
 
 function ClientList() {
+    /** @TODO fazer com que data seja um context */
     const [data, setData] = useState([{ name: "Ernany", email: "ernany@email.com", cpf: "08814692629", endereco: "Rua severiano ribeiro cardoso, 64 Itajubá 37502-080" }]);
     return (
         <Container>
