@@ -1,26 +1,28 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Container, Form, Button, Icon } from 'semantic-ui-react'
 import { Link, useHistory, useParams } from 'react-router-dom';
-import styled from "styled-components";
 import DataContext from './DataContext';
-import SpecialHeading from './StyledComponents';
-import {  toast } from 'react-toastify';
+import {SpecialHeading} from './StyledComponents';
+import { toast } from 'react-toastify';
 
 function NewEditClientForm() {
     const { editId }: any = useParams();
-    const { data, setData }: any = useContext(DataContext);
     const [formData, setFormData] = useState({ nome: "", email: "", cpf: "", cep: "", rua: "", bairro: "", numero: "", cidade: "" });
     let history = useHistory();
-    useEffect(() => {
 
-        if (data && editId) {
-
-            const { nome, email, cpf, endereco } = data[editId];
-            if (endereco)
+    const getClient = (editId: number) => {
+        fetch(`http://localhost:5000/clientes/${editId}`)
+            .then((res) => res.json())
+            .then((json) => {
+                const { nome, email, cpf, endereco } = json;
                 setFormData({
-                    nome: nome, email, cpf, cep: endereco.cep, rua: endereco.rua, bairro: endereco.bairro, numero: endereco.numero, cidade: endereco.cidade
+                    nome, email, cpf, cep: endereco.cep, rua: endereco.rua, bairro: endereco.bairro, numero: endereco.numero, cidade: endereco.cidade
                 });
-        }
+            });
+    }
+
+    useEffect(() => {
+        if (editId) getClient(editId);
     }, [])
 
     const handleChange = ({ target }: any) => {
@@ -42,25 +44,58 @@ function NewEditClientForm() {
         }
     }
 
+    const updateClient = (formId: number) => {
+        const { nome, email, cpf, rua, cep, bairro, numero, cidade } = formData;
+        const formatedData = {
+            nome, email, cpf,
+            endereco: {
+                rua, cep, bairro, numero, cidade
+            }
+        }
+        fetch(`http://localhost:5000/clientes/${formId}`, {
+            method: "PUT", body: JSON.stringify(formatedData), headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((res) => {
+                res.json();
+            })
+            .then((json) => {
+                history.push("/list");
+                toast.success('✍ Cliente atualizado com sucesso!');
+            });
+    }
+
+    const createClient = () => {
+        const { nome, email, cpf, rua, cep, bairro, numero, cidade } = formData;
+        const formatedData = {
+            nome, email, cpf,
+            endereco: {
+                rua, cep, bairro, numero, cidade
+            }
+        }
+
+        fetch(`http://localhost:5000/clientes`, {
+            method: "POST", body: JSON.stringify(formatedData), headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then((res) => {
+                res.json();
+            })
+            .then((json) => {
+                setFormData({ nome: "", email: "", cpf: "", cep: "", rua: "", bairro: "", numero: "", cidade: "" });
+                toast.success('✔ Cliente cadastrado! Gostaria de cadastrar outro?');
+            });
+    }
+
     const handleSubmit = (ev: any) => {
         ev.preventDefault();
-        const { nome, email, cpf, cep, rua, numero, bairro, cidade } = formData;
         if (editId) {
-            setData([
-                ...data.slice(0, editId),
-                {
-                    ...data[editId],
-                    nome, email, cpf, endereco: { cep, rua, numero, bairro, cidade }
-                },
-                ...data.slice(editId + 1)
-            ]);
-            history.push("/list");
-            toast.success('✍ Cliente atualizado com sucesso!');
+            updateClient(editId)
         } else {
-            setData([...data, { nome, email, cpf, endereco: { cep, rua, numero, bairro, cidade } }]);
-            toast.success('✔ Cliente cadastrado! Gostaria de cadastrar outro?');
+            createClient();
         }
-        setFormData({ nome: "", email: "", cpf: "", cep: "", rua: "", bairro: "", numero: "", cidade: "" });
     }
 
     return (

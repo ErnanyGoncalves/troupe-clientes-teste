@@ -1,0 +1,27 @@
+{
+  "usuarios": [
+    {
+      "email": "teste@email.com",
+      "senha": "123321"
+    },
+    {
+      "email": "teste2@email.com",
+      "senha": "456654"
+    }
+  ],
+  "clientes": [
+    {
+      "nome": "AAA",
+      "email": "AAAAAAAAAAAAAAAA@email",
+      "cpf": "51516561615",
+      "endereco": {
+        "rua": "Travessa Edilson Silva",
+        "cep": "5906219",
+        "bairro": "Nossa Senhora de Nazaré",
+        "numero": "561",
+        "cidade": "Natal"
+      },
+      "id": 1
+    }
+  ]
+}

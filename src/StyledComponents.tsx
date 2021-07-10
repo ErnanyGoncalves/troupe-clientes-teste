@@ -4,5 +4,13 @@ const SpecialHeading = styled.div`
         justify-content:space-between;
         align-items:center;
     `
+const NavbarTroupe = styled.div`
+        margin:0 0 1rem 0;
+        padding:1rem;
+        border: 1px solid lightgray;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+    `
 
-export default SpecialHeading;
+export { SpecialHeading, NavbarTroupe};
