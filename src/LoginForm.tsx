@@ -24,6 +24,7 @@ function LoginForm() {
         .then((users) => {
           const found = !!users.find((u: any) => u.email === email && u.senha === senha);
           if(found) {
+            window.localStorage.setItem("user",email);
             setOnline(found);
             history.push("/list");
           }else{

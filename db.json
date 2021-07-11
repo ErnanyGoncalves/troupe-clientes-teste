@@ -13,13 +13,13 @@
     {
       "nome": "AAA",
       "email": "AAAAAAAAAAAAAAAA@email",
-      "cpf": "51516561615",
+      "cpf": "088.146.926-29",
       "endereco": {
-        "rua": "Travessa Edilson Silva",
-        "cep": "5906219",
-        "bairro": "Nossa Senhora de Nazaré",
+        "rua": "Rua Severiano Ribeiro Cardoso",
+        "cep": "37502080",
+        "bairro": "São Vicente",
         "numero": "561",
-        "cidade": "Natal"
+        "cidade": "Itajubá"
       },
       "id": 1
     }

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import LoginForm from './LoginForm';
 import { BrowserRouter, Switch, Route, useHistory, Redirect } from "react-router-dom";
 
@@ -16,12 +16,19 @@ function App() {
   /** @TODO Por no local storage que o status de online e usa-lo na verificacao do redirect */
 
   const [data, setData] = useState([]);
-  const [online, setOnline] = useState(false);
+  const [online, setOnline] = useState(window.localStorage.getItem("user") ? true : false);
 
   const handleLogout = (ev: any) => {
     ev.preventDefault();
     setOnline(false);
+    localStorage.removeItem('user');
   }
+
+  useEffect(() => {
+    if (window.localStorage.getItem("user")) {
+      setOnline(true);
+    }
+  }, []);
 
   return (
     <DataContext.Provider value={{ data, setData, online, setOnline }}>
@@ -31,6 +38,7 @@ function App() {
       </NavbarTroupe>
       <BrowserRouter>
         <Switch>
+          <Route exact path="/"><LoginForm /></Route>
           <Route path="/list">
             {!online ? <Redirect to="/" /> : <ClientList />}</Route>
           <Route path="/new">
@@ -38,9 +46,8 @@ function App() {
           <Route path="/edit/:editId">
             {!online ? <Redirect to="/" /> : <NewEditClientForm />}
           </Route>
-          <Route path="/"><LoginForm /></Route>
-          <Route path="/:anythingElse">
-            {!online ? <LoginForm /> : <ClientList />}</Route>
+          <Route path="*">
+            {!online ? <Redirect to="/" /> : <Redirect to="/list" />}</Route>
         </Switch>
       </BrowserRouter>
       <ToastContainer

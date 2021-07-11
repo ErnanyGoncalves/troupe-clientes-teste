@@ -7,6 +7,7 @@ const SpecialHeading = styled.div`
 const NavbarTroupe = styled.div`
         margin:0 0 1rem 0;
         padding:1rem;
+        height:5rem;
         border: 1px solid lightgray;
         display:flex;
         justify-content:space-between;

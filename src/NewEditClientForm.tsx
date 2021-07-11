@@ -23,18 +23,32 @@ function NewEditClientForm() {
 
     useEffect(() => {
         if (editId) getClient(editId);
-    }, [])
+    }, []);
+
+    const mCPF = (cpf:string)=> {
+        cpf=cpf.replace(/\D/g,"")
+        cpf=cpf.replace(/(\d{3})(\d)/,"$1.$2")
+        cpf=cpf.replace(/(\d{3})(\d)/,"$1.$2")
+        cpf=cpf.replace(/(\d{3})(\d{1,2})$/,"$1-$2")
+        return cpf
+    }
 
     const handleChange = ({ target }: any) => {
         const { id, value } = target;
         let reqBlocked = false;
         setFormData({ ...formData, [id]: value });
+        if(id==="cpf"){
+            const maskedValue = mCPF(value);
+            setFormData({...formData,[id]:maskedValue});
+        }
+
         if (!reqBlocked && id === "cep" && value.length === 8) {
             fetch(`https://viacep.com.br/ws/${value}/json/`)
                 .then(res => res.json())
                 .then(data => {
                     setFormData({
                         ...formData,
+                        [id]:value,
                         ["bairro"]: data.bairro,
                         ["rua"]: data.logradouro,
                         ["cidade"]: data.localidade,
