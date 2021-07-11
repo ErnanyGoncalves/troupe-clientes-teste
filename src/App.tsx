@@ -12,9 +12,6 @@ import { NavbarTroupe } from './StyledComponents';
 import { Button } from 'semantic-ui-react';
 
 function App() {
-
-  /** @TODO Por no local storage que o status de online e usa-lo na verificacao do redirect */
-
   const [data, setData] = useState([]);
   const [online, setOnline] = useState(window.localStorage.getItem("user") ? true : false);
 
