@@ -35,7 +35,8 @@ function App() {
       </NavbarTroupe>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/"><LoginForm /></Route>
+          <Route exact path="/">
+          {!online ? <LoginForm /> : <Redirect to="/list" />}</Route>
           <Route path="/list">
             {!online ? <Redirect to="/" /> : <ClientList />}</Route>
           <Route path="/new">

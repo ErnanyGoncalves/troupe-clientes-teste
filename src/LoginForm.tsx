@@ -51,7 +51,7 @@ function LoginForm() {
         </Form.Field>
         <Form.Field>
           <label htmlFor="senha">Senha</label>
-          <input id="senha" type="password" placeholder='Senha' value={formData.senha} onChange={handleChange} required />
+          <input id="senha" minLength={5} type="password" placeholder='Senha' value={formData.senha} onChange={handleChange} required />
         </Form.Field>
         <Button type='submit' >Entrar</Button>
       </Form>

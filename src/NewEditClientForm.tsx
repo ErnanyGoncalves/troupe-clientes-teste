@@ -129,12 +129,12 @@ function NewEditClientForm() {
                 </Form.Field>
                 <Form.Field>
                     <label htmlFor="cpf">CPF</label>
-                    <input type="text" id="cpf" onChange={handleChange} value={formData.cpf} placeholder='CPF' required />
+                    <input type="text" id="cpf" pattern="[0-9]+" maxLength={14} onChange={handleChange} value={formData.cpf} placeholder='CPF' required />
                 </Form.Field>
                 <Form.Field>
                     <label>Endereço</label>
                     <label htmlFor="cep">CEP</label>
-                    <input type="number" id="cep" onChange={handleChange} value={formData.cep} placeholder='CEP' required />
+                    <input type="number" id="cep" onWheel={(ev)=>ev.currentTarget.blur()} min="0" max="99999999" onChange={handleChange} value={formData.cep} placeholder='CEP' required />
                 </Form.Field>
                 <Form.Field>
                     <label htmlFor="rua">Rua</label>
@@ -142,7 +142,7 @@ function NewEditClientForm() {
                 </Form.Field>
                 <Form.Field>
                     <label htmlFor="numero">Número</label>
-                    <input type="number" id="numero" onChange={handleChange} value={formData.numero} placeholder='Número' required />
+                    <input type="number" id="numero" onWheel={(ev)=>ev.currentTarget.blur()} min="1" onChange={handleChange} value={formData.numero} placeholder='Número' required />
                 </Form.Field>
                 <Form.Field>
                     <label htmlFor="bairro">Bairro</label>

@@ -9,19 +9,5 @@
       "senha": "456654"
     }
   ],
-  "clientes": [
-    {
-      "nome": "AAA",
-      "email": "AAAAAAAAAAAAAAAA@email",
-      "cpf": "088.146.926-29",
-      "endereco": {
-        "rua": "Rua Severiano Ribeiro Cardoso",
-        "cep": "37502080",
-        "bairro": "São Vicente",
-        "numero": "561",
-        "cidade": "Itajubá"
-      },
-      "id": 1
-    }
-  ]
+  "clientes": []
 }
