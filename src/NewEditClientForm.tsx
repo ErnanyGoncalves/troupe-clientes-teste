@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Container, Form, Button, Icon } from 'semantic-ui-react'
 import { Link, useHistory, useParams } from 'react-router-dom';
 import DataContext from './DataContext';
-import {SpecialHeading} from './StyledComponents';
+import { SpecialHeading } from './StyledComponents';
 import { toast } from 'react-toastify';
 
 function NewEditClientForm() {
@@ -25,11 +25,11 @@ function NewEditClientForm() {
         if (editId) getClient(editId);
     }, []);
 
-    const mCPF = (cpf:string)=> {
-        cpf=cpf.replace(/\D/g,"")
-        cpf=cpf.replace(/(\d{3})(\d)/,"$1.$2")
-        cpf=cpf.replace(/(\d{3})(\d)/,"$1.$2")
-        cpf=cpf.replace(/(\d{3})(\d{1,2})$/,"$1-$2")
+    const mCPF = (cpf: string) => {
+        cpf = cpf.replace(/\D/g, "")
+        cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
+        cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
+        cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
         return cpf
     }
 
@@ -37,9 +37,9 @@ function NewEditClientForm() {
         const { id, value } = target;
         let reqBlocked = false;
         setFormData({ ...formData, [id]: value });
-        if(id==="cpf"){
+        if (id === "cpf") {
             const maskedValue = mCPF(value);
-            setFormData({...formData,[id]:maskedValue});
+            setFormData({ ...formData, [id]: maskedValue });
         }
 
         if (!reqBlocked && id === "cep" && value.length === 8) {
@@ -48,7 +48,7 @@ function NewEditClientForm() {
                 .then(data => {
                     setFormData({
                         ...formData,
-                        [id]:value,
+                        [id]: value,
                         ["bairro"]: data.bairro,
                         ["rua"]: data.logradouro,
                         ["cidade"]: data.localidade,
@@ -119,39 +119,46 @@ function NewEditClientForm() {
                 <Link to="/list"><Button icon><Icon name="list" /></Button></Link>
             </SpecialHeading>
             <Form onSubmit={handleSubmit}>
-                <Form.Field>
-                    <label htmlFor="nome">Nome</label>
-                    <input type="text" id="nome" onChange={handleChange} value={formData.nome} placeholder='Nome' required />
-                </Form.Field>
-                <Form.Field>
-                    <label htmlFor="email">Email</label>
-                    <input type="email" id="email" onChange={handleChange} value={formData.email} placeholder='Email' required />
-                </Form.Field>
-                <Form.Field>
-                    <label htmlFor="cpf">CPF</label>
-                    <input type="text" id="cpf" pattern="[0-9]+" maxLength={14} onChange={handleChange} value={formData.cpf} placeholder='CPF' required />
-                </Form.Field>
-                <Form.Field>
-                    <label>Endereço</label>
-                    <label htmlFor="cep">CEP</label>
-                    <input type="number" id="cep" onWheel={(ev)=>ev.currentTarget.blur()} min="0" max="99999999" onChange={handleChange} value={formData.cep} placeholder='CEP' required />
-                </Form.Field>
-                <Form.Field>
-                    <label htmlFor="rua">Rua</label>
-                    <input type="text" id="rua" onChange={handleChange} value={formData.rua} placeholder='Rua' required />
-                </Form.Field>
-                <Form.Field>
-                    <label htmlFor="numero">Número</label>
-                    <input type="number" id="numero" onWheel={(ev)=>ev.currentTarget.blur()} min="1" onChange={handleChange} value={formData.numero} placeholder='Número' required />
-                </Form.Field>
-                <Form.Field>
-                    <label htmlFor="bairro">Bairro</label>
-                    <input type="text" id="bairro" onChange={handleChange} value={formData.bairro} placeholder='Bairro' required />
-                </Form.Field>
-                <Form.Field>
-                    <label htmlFor="cidade">Cidade</label>
-                    <input type="text" id="cidade" onChange={handleChange} value={formData.cidade} placeholder='Cidade' required />
-                </Form.Field>
+                <Form.Group widths='equal'>
+                    <Form.Field>
+                        <label htmlFor="nome">Nome</label>
+                        <input type="text" id="nome" onChange={handleChange} value={formData.nome} placeholder='Nome' required />
+                    </Form.Field>
+                    <Form.Field>
+                        <label htmlFor="email">Email</label>
+                        <input type="email" id="email" onChange={handleChange} value={formData.email} placeholder='Email' required />
+                    </Form.Field>
+                    <Form.Field>
+                        <label htmlFor="cpf">CPF</label>
+                        <input type="text" id="cpf" pattern="[0-9]+" maxLength={14} onChange={handleChange} value={formData.cpf} placeholder='CPF' required />
+                    </Form.Field>
+                </Form.Group>
+                <b>Endereço</b>
+                <Form.Group widths='equal'>
+                    <Form.Field>
+                        
+                        <label htmlFor="cep">CEP</label>
+                        <input type="number" id="cep" onWheel={(ev) => ev.currentTarget.blur()} min="0" max="99999999" onChange={handleChange} value={formData.cep} placeholder='CEP' required />
+                    </Form.Field>
+                    <Form.Field>
+                        <label htmlFor="numero">Número</label>
+                        <input type="number" id="numero" onWheel={(ev) => ev.currentTarget.blur()} min="1" onChange={handleChange} value={formData.numero} placeholder='Número' required />
+                    </Form.Field>
+                </Form.Group>
+                <Form.Group widths='equal'>
+                    <Form.Field>
+                        <label htmlFor="rua">Rua</label>
+                        <input type="text" id="rua" onChange={handleChange} value={formData.rua} placeholder='Rua' required />
+                    </Form.Field>
+                    <Form.Field>
+                        <label htmlFor="bairro">Bairro</label>
+                        <input type="text" id="bairro" onChange={handleChange} value={formData.bairro} placeholder='Bairro' required />
+                    </Form.Field>
+                    <Form.Field>
+                        <label htmlFor="cidade">Cidade</label>
+                        <input type="text" id="cidade" onChange={handleChange} value={formData.cidade} placeholder='Cidade' required />
+                    </Form.Field>
+                </Form.Group>
                 <Button type='submit'>{editId ? "Editar" : "Cadastrar"}</Button>
             </Form>
         </Container>
