@@ -44,16 +44,16 @@ function LoginForm() {
 
   return (
     <Container>
-      <Form onClick={handleSubmit}>
+      <Form data-test="login-form" onClick={handleSubmit}>
         <Form.Field>
           <label htmlFor="email">Email</label>
-          <input id="email" type="email" placeholder='Email' value={formData.email} onChange={handleChange} required />
+          <input data-test="email-input" id="email" type="email" placeholder='Email' value={formData.email} onChange={handleChange} required />
         </Form.Field>
         <Form.Field>
           <label htmlFor="senha">Senha</label>
-          <input id="senha" minLength={5} type="password" placeholder='Senha' value={formData.senha} onChange={handleChange} required />
+          <input data-test="senha-input" id="senha" minLength={5} type="password" placeholder='Senha' value={formData.senha} onChange={handleChange} required />
         </Form.Field>
-        <Button type='submit' >Entrar</Button>
+        <Button data-test="entrar-button" type='submit' >Entrar</Button>
       </Form>
     </Container>
   );
